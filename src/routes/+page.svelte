@@ -6,7 +6,7 @@
 
   onMount(() => {
     // Play the boot sound immediately when the page loads
-    audio = new Audio('/boot-sound.mp3'); // Replace with the path to your boot sound
+    audio = new Audio('/sound.m4a'); 
 
     // Ensure audio is ready to play
     audio.oncanplaythrough = () => {
@@ -15,7 +15,7 @@
         // After the audio finishes, hide the loading screen
         setTimeout(() => {
           isLoading = false; // Hide the loading screen after the sound duration
-        }, audio.duration * 1000);  // Duration is in seconds, multiply by 1000 to convert to milliseconds
+        }, audio.duration * 16000);  
       }).catch((error) => {
         console.error("Error playing audio:", error); // Handle any errors
       });
@@ -26,7 +26,7 @@
 
   const projects = [
     {
-      title: "Project Alpha",
+      title: "LinkGem",
       description: "Full-stack application with real-time updates",
       tech: ["React", "Node.js", "Socket.IO"],
       image: "/placeholder-project1.jpg"
@@ -209,7 +209,7 @@
   <section class="profile">
     <img src="{photo}" alt="Your Photo" class="profile-photo" />
     <div class="profile-intro">
-      <h1 class="glitch-text">[IbrahimFawuzan]</h1>
+      <h1 class="glitch-text">[Ibrahim Fawuzan]</h1>
       <p class="subtitle">SOFTWARE ENGINEER & GAMING ENTHUSIAST</p>
     </div>
   </section>
