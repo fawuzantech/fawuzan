@@ -42,23 +42,12 @@
     { name: "Game Development", level: 90 }
   ];
   
-
   onMount(() => {
-  // Create an Audio element
-  audio = new Audio('/sound.m4a');
-  audio.autoplay = true; // Automatically start playing
-  audio.loop = true; // Set to loop indefinitely
-
-  // Once the audio is ready to play
-  audio.oncanplaythrough = () => {
-    // Set a fixed timeout to hide the loading screen after 15 seconds
-    setTimeout(() => {
-      isLoading = false; // Hide the loading screen after 15 seconds
-    }, 15000);  // 15000 ms = 15 seconds
-  };
-});
-
-
+    // Play the boot sound immediately when the page loads
+    audio = new Audio('/sound.m4a');
+    audio.autoplay = true; // Set autoplay to true
+    audio.loop = true; // Set to loop indefinitely
+  });
 </script>
 
 <style>
