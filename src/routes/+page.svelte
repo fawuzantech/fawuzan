@@ -1,30 +1,26 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
 
-  let isLoading = true;  // Controls whether the loading screen is visible
-  let audio;
+  // Define types for the projects and skills
+  interface Project {
+    title: string;
+    description: string;
+    tech: string[];
+    image: string;
+  }
 
-  onMount(() => {
-    // Play the boot sound immediately when the page loads
-    audio = new Audio('/sound.m4a'); 
+  interface Skill {
+    name: string;
+    level: number;
+  }
 
-    // Ensure audio is ready to play
-    audio.oncanplaythrough = () => {
-      // Start playing the sound
-      audio.play().then(() => {
-        // After the audio finishes, hide the loading screen
-        setTimeout(() => {
-          isLoading = false; // Hide the loading screen after the sound duration
-        }, audio.duration * 16000);  
-      }).catch((error) => {
-        console.error("Error playing audio:", error); // Handle any errors
-      });
-    };
-  });
+  let isLoading: boolean = true;  // Controls whether the loading screen is visible
+  let audio: HTMLAudioElement | undefined;  // Audio element with a possible undefined value
 
-  const photo = "/f15e92.jpg"; // Replace with the path to your profile photo
+  // Initialize projects and skills with type annotations
+  const photo: string = "/f15e92.jpg"; // Replace with the path to your profile photo
 
-  const projects = [
+  const projects: Project[] = [
     {
       title: "LinkGem",
       description: "Full-stack application with real-time updates",
@@ -39,12 +35,30 @@
     }
   ];
 
-  const skills = [
+  const skills: Skill[] = [
     { name: "Frontend", level: 92 },
     { name: "Backend", level: 88 },
     { name: "DevOps", level: 85 },
     { name: "Game Development", level: 90 }
   ];
+  
+
+  onMount(() => {
+  // Create an Audio element
+  audio = new Audio('/sound.m4a');
+  audio.autoplay = true; // Automatically start playing
+  audio.loop = true; // Set to loop indefinitely
+
+  // Once the audio is ready to play
+  audio.oncanplaythrough = () => {
+    // Set a fixed timeout to hide the loading screen after 15 seconds
+    setTimeout(() => {
+      isLoading = false; // Hide the loading screen after 15 seconds
+    }, 15000);  // 15000 ms = 15 seconds
+  };
+});
+
+
 </script>
 
 <style>
@@ -196,6 +210,68 @@
     60% { transform: translate(2px, 2px); }
     80% { transform: translate(2px, -2px); }
     100% { transform: translate(0); }
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .profile {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .profile-photo {
+      width: 120px;
+      height: 120px;
+    }
+
+    .hero {
+      height: auto;
+      padding: 2rem 1rem;
+    }
+
+    .glitch-text {
+      font-size: 2.5rem;
+    }
+
+    .project-grid {
+      grid-template-columns: 1fr;  /* Stack projects vertically */
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      padding: 1rem;
+    }
+
+    .skill-bar {
+      height: 15px;
+    }
+
+    .skill-progress {
+      transition: width 0.5s ease; /* Make skill bars smoother on small screens */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .profile-intro h1 {
+      font-size: 1.5rem;
+    }
+
+    .profile-intro .subtitle {
+      font-size: 1rem;
+    }
+
+    .glitch-text {
+      font-size: 2rem;
+    }
+
+    .project-card {
+      padding: 1rem;
+    }
+
+    .project-grid {
+      gap: 1rem;
+    }
   }
 </style>
 
